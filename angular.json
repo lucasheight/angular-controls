@@ -8,7 +8,7 @@
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "lh",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -112,6 +112,76 @@
             "production": {
               "devServerTarget": "ngControls:serve:production"
             }
+          }
+        }
+      }
+    },
+    "lh-percent": {
+      "projectType": "library",
+      "root": "projects/lh-percent",
+      "sourceRoot": "projects/lh-percent/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/lh-percent/tsconfig.lib.json",
+            "project": "projects/lh-percent/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lh-percent/src/test.ts",
+            "tsConfig": "projects/lh-percent/tsconfig.spec.json",
+            "karmaConfig": "projects/lh-percent/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/lh-percent/tsconfig.lib.json",
+              "projects/lh-percent/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "lh-controls": {
+      "projectType": "library",
+      "root": "projects/lh-controls",
+      "sourceRoot": "projects/lh-controls/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/lh-controls/tsconfig.lib.json",
+            "project": "projects/lh-controls/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lh-controls/src/test.ts",
+            "tsConfig": "projects/lh-controls/tsconfig.spec.json",
+            "karmaConfig": "projects/lh-controls/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/lh-controls/tsconfig.lib.json",
+              "projects/lh-controls/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }

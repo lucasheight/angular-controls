@@ -18,6 +18,20 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "lh-percent": [
+        "dist/lh-percent"
+      ],
+      "lh-percent/*": [
+        "dist/lh-percent/*"
+      ],
+      "lh-controls": [
+        "dist/lh-controls"
+      ],
+      "lh-controls/*": [
+        "dist/lh-controls/*"
+      ]
+    }
   }
 }
