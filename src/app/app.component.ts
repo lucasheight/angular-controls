@@ -10,7 +10,7 @@ export class AppComponent implements OnInit{
   title = 'ngControls';
   value: number = 0.3;
   val:number = 20;
-  vaUndefined:number = null;
+  valUndefined:number = undefined;
   inputControl:FormControl;
   formGroup:FormGroup;
   ngOnInit(){

@@ -45,10 +45,10 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   };
   @Input("value") set value(val: number) {
 
-    if (this._input && val !==undefined) {
+    if (this._input && val) {
       this._input.nativeElement.value = val * this._factor;
     }
-    if (this._display && val !==undefined) {
+    if (this._display && val) {
       this._display.nativeElement.value = this.formatDisplay(val * this._factor);
     }
   };
