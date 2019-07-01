@@ -28,5 +28,5 @@ export class AppModule{}`
 
 Add the control in you template:
 
-`<lh-input factor="1" prefix="$" postfix=" AUD" (valueChange)="onChange($event)" (focus)="onFocus($event)"
-    (blur)="onBlur($event)" width="100" [(value)]="val"></lh-input>`
+`<lh-numberInput factor="1" prefix="$" postfix=" AUD" (valueChange)="onChange($event)" (focus)="onFocus($event)"
+    (blur)="onBlur($event)" width="100" [(value)]="val"></lh-numberInput>`

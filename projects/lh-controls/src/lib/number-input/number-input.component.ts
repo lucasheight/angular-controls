@@ -6,7 +6,7 @@ import { takeUntil, take, distinctUntilChanged, debounceTime } from "rxjs/operat
 
 
 @Component({
-  selector: 'lh-input',
+  selector: 'lh-numberInput',
   templateUrl: './number-input.component.html',
   styleUrls: ['./number-input.component.css'],
   providers: [
