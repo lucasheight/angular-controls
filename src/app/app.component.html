@@ -6,8 +6,8 @@
 </div>
 <div>
   <h4>No binding</h4>
-  <lh-numberInput disabled="true" factor="1" prefix="$" postfix=" AUD" title="Please enter a value" placeholder="Enter something" (valueChange)="onChange($event)" (focus)="onFocus($event)"
-    (blur)="onBlur($event)" width="100" ></lh-numberInput>
+  <lh-numberInput  factor="1" prefix="$" postfix=" AUD" title="Please enter a value" placeholder="Enter something" (valueChange)="onChange($event)" (focus)="onFocus($event)"
+    (blur)="onBlur($event)" width="100" [value]="valUndefined" ></lh-numberInput>
 
   <h4>With model binding</h4>
   <p>Factor:1; prefix:$; postfix: AUD</p>
