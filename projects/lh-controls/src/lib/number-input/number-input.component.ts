@@ -43,16 +43,17 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
       this._width = val.toString();
     }
   };
+  @Input() decimals: number = 0;
   @Input("value") set value(val: number) {
 
     if (this._input && val) {
-      this._input.nativeElement.value = val * this._factor;
+      this._input.nativeElement.value = (val * this._factor).toFixed(this.decimals);
     }
     if (this._display && val) {
-      this._display.nativeElement.value = this.formatDisplay(val * this._factor);
+      this._display.nativeElement.value = this.formatDisplay((val * this._factor).toFixed(this.decimals));
     }
   };
-  @Output("valueChange") valueOutput: EventEmitter<number> = new EventEmitter();
+  @Output("valueChange") valueOutput: EventEmitter<number | string> = new EventEmitter();
   @Output("blur") blurOutput: EventEmitter<FocusEvent> = new EventEmitter();
   @Output("focus") focusOutput: EventEmitter<FocusEvent> = new EventEmitter();
   @ViewChild("inputCtr", { static: true }) _input: ElementRef;
@@ -82,8 +83,8 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
       distinctUntilChanged())
       .subscribe(s => {
         //console.log("input", s)
-        let v = parseFloat(this._input.nativeElement.value) / this._factor;
-        this._display.nativeElement.value = this.formatDisplay(parseFloat(this._input.nativeElement.value) || null);
+        let v = (parseFloat(this._input.nativeElement.value) / this._factor);
+        this._display.nativeElement.value = this._input.nativeElement.value ? this.formatDisplay(parseFloat(this._input.nativeElement.value).toFixed(this.decimals)) : null;
         this.valueOutput.emit(v || null);
         this.onChanged(v || null);
       });
@@ -115,10 +116,10 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
       else { throw "Unable to cast input to number" }
 
       if (this._input) {
-        this._input.nativeElement.value = (obj as number) * this._factor;
+        this._input.nativeElement.value = ((obj as number) * this._factor).toFixed(this.decimals);
       }
       if (this._display) {
-        this._display.nativeElement.value = this.formatDisplay((obj as number) * this._factor);
+        this._display.nativeElement.value = this.formatDisplay(((obj as number) * this._factor).toFixed(this.decimals));
       }
 
 
