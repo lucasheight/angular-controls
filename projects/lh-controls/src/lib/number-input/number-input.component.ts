@@ -12,24 +12,29 @@ import { takeUntil, take, distinctUntilChanged, debounceTime } from "rxjs/operat
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => NumberInputComponent), multi: true }
   ],
-  host:{
+  host: {
     //'(blur)':'onTouched()',
-    '[style.width]':'_width'
+    '[style.width]': '_width'
   }
 })
 export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
   private numberReg = /\d+/g;
   showInput: boolean = false;
-  disabled: boolean = false;
+  _disabled: boolean = false;
   _factor: number = 1;
   _width: string = undefined;
+  @Input() placeholder: string = "";
+  @Input() title: string = "";
   //@HostBinding("style.width") hostWidth = undefined;
   @Input() tabindex: number = 0;
   @Input() set factor(val: number) {
     this._factor = Math.round(val);
   };
-  @Input() prefix:string="";
-  @Input() postfix:string="";
+  @Input() set disabled(val: boolean) {
+    this._disabled = val;
+  }
+  @Input() prefix: string = "";
+  @Input() postfix: string = "";
   @Input() set width(val: number | string) {
     if (parseFloat(val.toString())) {
       this._width = `${val}px`;
@@ -53,7 +58,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   @ViewChild("inputCtr", { static: true }) _input: ElementRef;
   @ViewChild("displayCtr", { static: true }) _display: ElementRef;
   private destroy$: Subject<void> = new Subject();
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -123,10 +128,10 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
     this.onChanged = fn;
   }
   registerOnTouched(fn: any): void {
-    this.onTouched=fn;
+    this.onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this._disabled = isDisabled;
   }
   private formatDisplay = (val: string | number): string => {
     return val ? `${this.prefix}${val.toString()}${this.postfix}` : "Null";
