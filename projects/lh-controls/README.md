@@ -1,9 +1,32 @@
 # Angular-controls
 
 ## Number Input Component
-A useful input component that can format a decimal into a percent.
-This is useful when a user wants to enter values as pecentages (i.e. 01 * 100)
+A number input component.
+**Features**
+* Provides a 'factor' attribute to allow a display multiplication without change to model value.
+This is useful when you want to display a decimal value as a percentage  (i.e. 01 * 100).
+* Prefix and postfix inputs to allow display of additional strings.
+* Supports template and reactive forms.
 
-The control also provides inputs to pre and post fix the display value.
+### Installation
 
+Install the library from npm:
 
+`npm install --save @lucasheight/angular-controls`
+
+### Using component
+Import the module into your angular application module.
+
+`import {LhControlsModule} from "@lucasheight/angular-controls"`
+
+`@NgModule({
+    imports:[
+      LhControlsModule
+    ]
+})
+export class AppModule{}`
+
+Add the control in you template:
+
+`<lh-input factor="1" prefix="$" postfix=" AUD" (valueChange)="onChange($event)" (focus)="onFocus($event)"
+    (blur)="onBlur($event)" width="100" [(value)]="val"></lh-input>`
