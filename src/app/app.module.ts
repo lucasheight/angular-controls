@@ -2,17 +2,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { PercentInputComponent } from './controls/percent-input/percent-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//import {LhControlsModule} from "@lucasheight/angular-controls"
+import {LhControlsModule} from "../../projects/lh-controls/src/lib/lh-controls.module"
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PercentInputComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    LhControlsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,10 +5,26 @@
   </h1>
 </div>
 <div>
-  <app-percent-input factor="100" (valueChange)="onChange($event)" value="0.2" width="100"></app-percent-input>
 
-  <app-percent-input factor="100" [(ngModel)]="value" width="80"></app-percent-input> 
+  <h4>With model binding</h4>
+  <p>Factor:1; prefix:$; postfix: AUD</p>
+  <lh-input factor="1" prefix="$" postfix=" AUD" (valueChange)="onChange($event)" (focus)="onFocus($event)"
+    (blur)="onBlur($event)" width="100" [(value)]="val"></lh-input>
 
-  the model value is: {{value}}
+  <p>The model value is {{val}}</p>
+
+  <h4>With forms template binding</h4>
+
+  <form>
+      <p>Factor:100; postfix: %</p>
+    <lh-input name="templateInput" factor="100" prefix="" postfix=" %" [(ngModel)]="value" width="80"> </lh-input>
+    <p>The model value is: {{value}}</p>
+  </form>
+  <h4>With reactive forms binding</h4>
+  <form [formGroup]="formGroup">
+    <p>Factor:100; postfix: %</p>
+    <lh-input formControlName="inputControl" factor="100" prefix="" postfix=" %" width="80">
+    </lh-input>
+    <p>The reactive form value is: {{formGroup.controls['inputControl'].value}}</p>
+  </form>
 </div>
-

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { PercentInputComponent } from './percent-input/percent-input.component';
+import { NumberInputComponent } from './number-input/number-input.component';
 
 
 @NgModule({
-  declarations: [PercentInputComponent],
+  declarations: [NumberInputComponent],
   imports: [
   ],
-  exports: [PercentInputComponent]
+  exports: [NumberInputComponent]
 })
 export class LhControlsModule { }

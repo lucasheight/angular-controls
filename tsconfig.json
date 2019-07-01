@@ -20,17 +20,18 @@
       "dom"
     ],
     "paths": {
-      "lh-percent": [
-        "dist/lh-percent"
-      ],
-      "lh-percent/*": [
-        "dist/lh-percent/*"
-      ],
+
       "lh-controls": [
         "dist/lh-controls"
       ],
       "lh-controls/*": [
         "dist/lh-controls/*"
+      ],
+      "lh-test": [
+        "dist/lh-test"
+      ],
+      "lh-test/*": [
+        "dist/lh-test/*"
       ]
     }
   }

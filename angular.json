@@ -116,41 +116,7 @@
         }
       }
     },
-    "lh-percent": {
-      "projectType": "library",
-      "root": "projects/lh-percent",
-      "sourceRoot": "projects/lh-percent/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/lh-percent/tsconfig.lib.json",
-            "project": "projects/lh-percent/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/lh-percent/src/test.ts",
-            "tsConfig": "projects/lh-percent/tsconfig.spec.json",
-            "karmaConfig": "projects/lh-percent/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/lh-percent/tsconfig.lib.json",
-              "projects/lh-percent/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
+    
     "lh-controls": {
       "projectType": "library",
       "root": "projects/lh-controls",
@@ -185,6 +151,7 @@
           }
         }
       }
-    }},
+    },
+ 
   "defaultProject": "ngControls"
 }

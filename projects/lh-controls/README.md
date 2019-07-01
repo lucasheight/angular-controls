@@ -1,24 +1,9 @@
-# LhControls
+# Angular-controls
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+## Number Input Component
+A useful input component that can format a decimal into a percent.
+This is useful when a user wants to enter values as pecentages (i.e. 01 * 100)
 
-## Code scaffolding
+The control also provides inputs to pre and post fix the display value.
 
-Run `ng generate component component-name --project lh-controls` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project lh-controls`.
-> Note: Don't forget to add `--project lh-controls` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
-
-Run `ng build lh-controls` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build lh-controls`, go to the dist folder `cd dist/lh-controls` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test lh-controls` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

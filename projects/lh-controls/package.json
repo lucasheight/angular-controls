@@ -1,8 +1,9 @@
 {
-  "name": "lh-controls",
-  "version": "0.0.1",
+  "name": "@lucasheight/angular-controls",
+  "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": "^8.0.1",
-    "@angular/core": "^8.0.1"
+    "@angular/core": "^8.0.1",
+    "rxjs": "~6.4.0"
   }
 }

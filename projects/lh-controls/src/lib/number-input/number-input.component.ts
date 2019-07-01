@@ -6,18 +6,18 @@ import { takeUntil, take, distinctUntilChanged, debounceTime } from "rxjs/operat
 
 
 @Component({
-  selector: 'lh-percent-input',
-  templateUrl: './percent-input.component.html',
-  styleUrls: ['./percent-input.component.css'],
+  selector: 'lh-input',
+  templateUrl: './number-input.component.html',
+  styleUrls: ['./number-input.component.css'],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PercentInputComponent), multi: true }
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => NumberInputComponent), multi: true }
   ],
   host:{
     //'(blur)':'onTouched()',
     '[style.width]':'_width'
   }
 })
-export class PercentInputComponent implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
+export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
   private numberReg = /\d+/g;
   showInput: boolean = false;
   disabled: boolean = false;
@@ -28,6 +28,8 @@ export class PercentInputComponent implements OnInit, OnDestroy, AfterViewInit, 
   @Input() set factor(val: number) {
     this._factor = Math.round(val);
   };
+  @Input() prefix:string="";
+  @Input() postfix:string="";
   @Input() set width(val: number | string) {
     if (parseFloat(val.toString())) {
       this._width = `${val}px`;
@@ -127,6 +129,6 @@ export class PercentInputComponent implements OnInit, OnDestroy, AfterViewInit, 
     this.disabled = isDisabled;
   }
   private formatDisplay = (val: string | number): string => {
-    return val ? `${val.toString()}%` : "Null";
+    return val ? `${this.prefix}${val.toString()}${this.postfix}` : "Null";
   }
 }
