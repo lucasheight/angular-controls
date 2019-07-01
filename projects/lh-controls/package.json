@@ -1,6 +1,6 @@
 {
   "name": "@lucasheight/angular-controls",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "Lynden Garrett",
     "url": "https://github.com/lucasheight",
@@ -10,8 +10,15 @@
   "bugs": {
     "url": "https://github.com/lucasheight/angular-controls/issues"
   },
-  "keywords": ["angular","controls","library"],
-"repository": {"type": "git","url": "git+https://github.com/lucasheight/angular-controls"},
+  "keywords": [
+    "angular",
+    "controls",
+    "library"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasheight/angular-controls"
+  },
   "peerDependencies": {
     "@angular/common": "^8.0.1",
     "@angular/core": "^8.0.1",
