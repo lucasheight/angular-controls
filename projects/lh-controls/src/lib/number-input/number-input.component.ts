@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener, ViewChild, OnDestroy, AfterViewInit, ElementRef, forwardRef, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ViewChild, OnDestroy, AfterViewInit, ElementRef, forwardRef, Output, EventEmitter, HostBinding, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { fromEvent, Subject, pipe } from 'rxjs';
 import { takeUntil, take, distinctUntilChanged, debounceTime } from "rxjs/operators";
@@ -60,7 +60,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   @ViewChild("displayCtr", { static: true }) _display: ElementRef;
   private destroy$: Subject<void> = new Subject();
 
-  constructor() { }
+  constructor(private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
 
@@ -72,10 +72,13 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
         //console.log("focus", s)
         this.showInput = true;
         setTimeout(() => {
+          
           this._input.nativeElement.focus()
           this.onTouched(s);
           this.focusOutput.emit(s)
+          
         });
+        this.cdr.markForCheck();
       });
     fromEvent<KeyboardEvent>(this._input.nativeElement, "input").pipe(
       takeUntil(this.destroy$),
@@ -87,6 +90,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
         this._display.nativeElement.value = this._input.nativeElement.value ? this.formatDisplay(parseFloat(this._input.nativeElement.value).toFixed(this.decimals)) : null;
         this.valueOutput.emit(v || null);
         this.onChanged(v || null);
+        this.cdr.markForCheck();
       });
 
     fromEvent<FocusEvent>(this._input.nativeElement, "blur").pipe(takeUntil(this.destroy$))
@@ -94,6 +98,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
         // console.log("merged", s)
         this.showInput = false;
         this.blurOutput.emit(s);
+        this.cdr.markForCheck();
         // this._input.nativeElement.focus()
       });
   }
@@ -121,7 +126,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
       if (this._display) {
         this._display.nativeElement.value = this.formatDisplay(((obj as number) * this._factor).toFixed(this.decimals));
       }
-
+      this.cdr.markForCheck();
 
     }
   }
