@@ -29,9 +29,11 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   @Input() tabindex: number = 0;
   @Input() set factor(val: number) {
     this._factor = Math.round(val);
+    this.cdr.markForCheck();
   };
   @Input() set disabled(val: boolean) {
     this._disabled = val;
+    this.cdr.markForCheck();
   }
   @Input() prefix: string = "";
   @Input() postfix: string = "";
@@ -42,6 +44,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
     else {
       this._width = val.toString();
     }
+    this.cdr.markForCheck();
   };
   @Input() decimals: number = 0;
   @Input("value") set value(val: number) {
@@ -52,6 +55,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
     if (this._display && val) {
       this._display.nativeElement.value = this.formatDisplay((val * this._factor).toFixed(this.decimals));
     }
+    this.cdr.markForCheck();
   };
   @Output("valueChange") valueOutput: EventEmitter<number | string> = new EventEmitter();
   @Output("blur") blurOutput: EventEmitter<FocusEvent> = new EventEmitter();
