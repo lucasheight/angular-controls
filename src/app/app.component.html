@@ -11,7 +11,7 @@
 
   <h4>With model binding</h4>
   <p>Factor:1; prefix:$; postfix: AUD</p>
-  <lh-numberInput factor="1" prefix="$" postfix=" AUD" (valueChange)="onChange($event)" (focus)="onFocus($event)"
+  <lh-numberInput factor="1" [decimals]="2" prefix="$" postfix=" AUD" (valueChange)="onChange($event)" (focus)="onFocus($event)"
     (blur)="onBlur($event)" width="100" [(value)]="val"></lh-numberInput>
 
   <p>The model value is {{val}}</p>
@@ -30,4 +30,5 @@
     </lh-numberInput>
     <p>The reactive form value is: {{formGroup.controls['inputControl'].value}}</p>
   </form>
+  <button type="button" (click)="onClick($event)">Change Values</button>
 </div>
