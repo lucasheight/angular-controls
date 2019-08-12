@@ -52,8 +52,14 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
     if (this._input && val) {
       this._input.nativeElement.value = (val * this._factor).toFixed(this.decimals);
     }
+    else {
+      this._input.nativeElement.value = null;
+    }
     if (this._display && val) {
       this._display.nativeElement.value = this.formatDisplay((val * this._factor).toFixed(this.decimals));
+    }
+    else{
+      this._display.nativeElement.value =null;
     }
     this.cdr.markForCheck();
   };
@@ -64,7 +70,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   @ViewChild("displayCtr", { static: true }) _display: ElementRef;
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private cdr:ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
 
@@ -76,11 +82,11 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
         //console.log("focus", s)
         this.showInput = true;
         setTimeout(() => {
-          
+
           this._input.nativeElement.focus()
           this.onTouched(s);
           this.focusOutput.emit(s)
-          
+
         });
         this.cdr.markForCheck();
       });
@@ -130,9 +136,13 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
       if (this._display) {
         this._display.nativeElement.value = this.formatDisplay(((obj as number) * this._factor).toFixed(this.decimals));
       }
-      this.cdr.markForCheck();
 
     }
+    else {
+      this._input.nativeElement.value = null;
+      this._display.nativeElement.value = null;
+    }
+    this.cdr.markForCheck();
   }
   registerOnChange(fn: any): void {
     this.onChanged = fn;

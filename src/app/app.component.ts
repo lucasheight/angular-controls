@@ -35,14 +35,21 @@ export class AppComponent implements OnInit {
   }
   onClick = (e) => {
     console.log("Button Clicked", e);
-  //  interval(2000).subscribe(() => {
-      
-      let ran = Math.random();
-      this.val = ran
-      this.value = ran;
-      this.valUndefined = ran;
-      this.formGroup.get("inputControl").setValue(ran);
-      console.log("new number", ran);
+    //  interval(2000).subscribe(() => {
+
+    let ran = Math.random();
+    this.val = ran
+    this.value = ran;
+    this.valUndefined = ran;
+    this.formGroup.get("inputControl").setValue(ran);
+    console.log("new number", ran);
     //})
+  }
+  onNull = () => {
+    const ran = null;
+    this.val = ran;
+    this.value = ran;
+    this.valUndefined = ran;
+    this.formGroup.get("inputControl").setValue(ran);
   }
 }
