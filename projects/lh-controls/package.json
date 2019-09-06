@@ -1,6 +1,6 @@
 {
   "name": "@lucasheight/angular-controls",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "author": {
     "name": "Lynden Garrett",
     "url": "https://github.com/lucasheight",
@@ -20,8 +20,8 @@
     "url": "git+https://github.com/lucasheight/angular-controls"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.1",
-    "@angular/core": "^8.0.1",
-    "rxjs": "~6.4.0"
+    "@angular/common": "^8",
+    "@angular/core": "^8",
+    "rxjs": "^6"
   }
 }
