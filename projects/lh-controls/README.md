@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/%40lucasheight%2Fangular-controls.svg)](https://badge.fury.io/js/%40lucasheight%2Fangular-controls)
 # Angular-controls
 
 ## Number Input Component
