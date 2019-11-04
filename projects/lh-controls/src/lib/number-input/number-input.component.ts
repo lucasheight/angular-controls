@@ -1,24 +1,41 @@
-import { Component, OnInit, Input, HostListener, ViewChild, OnDestroy, AfterViewInit, ElementRef, forwardRef, Output, EventEmitter, HostBinding, ChangeDetectorRef } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  OnDestroy,
+  AfterViewInit,
+  ElementRef,
+  forwardRef,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef
+} from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { fromEvent, Subject, pipe } from 'rxjs';
-import { takeUntil, take, distinctUntilChanged, debounceTime } from "rxjs/operators";
-
-
+import { fromEvent, Subject } from "rxjs";
+import { takeUntil, distinctUntilChanged, debounceTime } from "rxjs/operators";
 
 @Component({
-  selector: 'lh-numberInput',
-  templateUrl: './number-input.component.html',
-  styleUrls: ['./number-input.component.css'],
+  selector: "lh-numberInput",
+  templateUrl: "./number-input.component.html",
+  styleUrls: ["./number-input.component.css"],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => NumberInputComponent), multi: true }
+    {
+      provide: NG_VALUE_ACCESSOR,
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      useExisting: forwardRef(() => NumberInputComponent),
+      multi: true
+    }
   ],
   host: {
     //'(blur)':'onTouched()',
-    '[style.width]': '_width'
+    "[style.width]": "_width"
   }
 })
-export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
-  private numberReg = /\d+/g;
+export class NumberInputComponent
+  implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
   showInput: boolean = false;
   _disabled: boolean = false;
   _factor: number = 1;
@@ -30,7 +47,7 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   @Input() set factor(val: number) {
     this._factor = Math.round(val);
     this.cdr.markForCheck();
-  };
+  }
   @Input() set disabled(val: boolean) {
     this._disabled = val;
     this.cdr.markForCheck();
@@ -40,70 +57,76 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   @Input() set width(val: number | string) {
     if (parseFloat(val.toString())) {
       this._width = `${val}px`;
-    }
-    else {
+    } else {
       this._width = val.toString();
     }
     this.cdr.markForCheck();
-  };
+  }
   @Input() decimals: number = 0;
   @Input("value") set value(val: number) {
-
     if (this._input && val) {
-      this._input.nativeElement.value = (val * this._factor).toFixed(this.decimals);
-    }
-    else {
+      this._input.nativeElement.value = (val * this._factor).toFixed(
+        this.decimals
+      );
+    } else {
       this._input.nativeElement.value = null;
     }
     if (this._display && val) {
-      this._display.nativeElement.value = this.formatDisplay((val * this._factor).toFixed(this.decimals));
-    }
-    else{
-      this._display.nativeElement.value =null;
+      this._display.nativeElement.value = this.formatDisplay(
+        (val * this._factor).toFixed(this.decimals)
+      );
+    } else {
+      this._display.nativeElement.value = null;
     }
     this.cdr.markForCheck();
-  };
-  @Output("valueChange") valueOutput: EventEmitter<number | string> = new EventEmitter();
+  }
+  @Output("valueChange") valueOutput: EventEmitter<
+    number | string
+  > = new EventEmitter();
   @Output("blur") blurOutput: EventEmitter<FocusEvent> = new EventEmitter();
   @Output("focus") focusOutput: EventEmitter<FocusEvent> = new EventEmitter();
   @ViewChild("inputCtr", { static: true }) _input: ElementRef;
   @ViewChild("displayCtr", { static: true }) _display: ElementRef;
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {
-
-  }
-  ngAfterViewInit() {
-
-    fromEvent<FocusEvent>(this._display.nativeElement, "focus").pipe(takeUntil(this.destroy$))
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    fromEvent<FocusEvent>(this._display.nativeElement, "focus")
+      .pipe(takeUntil(this.destroy$))
       .subscribe(s => {
         //console.log("focus", s)
         this.showInput = true;
         setTimeout(() => {
-
-          this._input.nativeElement.focus()
+          this._input.nativeElement.focus();
           this.onTouched(s);
-          this.focusOutput.emit(s)
-
+          this.focusOutput.emit(s);
         });
         this.cdr.markForCheck();
       });
-    fromEvent<KeyboardEvent>(this._input.nativeElement, "input").pipe(
-      takeUntil(this.destroy$),
-      debounceTime(100),
-      distinctUntilChanged())
-      .subscribe(s => {
+    fromEvent<KeyboardEvent>(this._input.nativeElement, "input")
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100),
+        distinctUntilChanged()
+      )
+      .subscribe(() => {
         //console.log("input", s)
-        let v = (parseFloat(this._input.nativeElement.value) / this._factor);
-        this._display.nativeElement.value = this._input.nativeElement.value ? this.formatDisplay(parseFloat(this._input.nativeElement.value).toFixed(this.decimals)) : null;
+        const v = parseFloat(this._input.nativeElement.value) / this._factor;
+        this._display.nativeElement.value = this._input.nativeElement.value
+          ? this.formatDisplay(
+              parseFloat(this._input.nativeElement.value).toFixed(this.decimals)
+            )
+          : null;
         this.valueOutput.emit(v || null);
         this.onChanged(v || null);
         this.cdr.markForCheck();
       });
 
-    fromEvent<FocusEvent>(this._input.nativeElement, "blur").pipe(takeUntil(this.destroy$))
+    fromEvent<FocusEvent>(this._input.nativeElement, "blur")
+      .pipe(takeUntil(this.destroy$))
       .subscribe(s => {
         // console.log("merged", s)
         this.showInput = false;
@@ -113,32 +136,32 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.destroy$.next();
   }
 
-  onChanged = (_: any) => { };
-  onTouched = (_: any) => { };
+  onChanged = (_: any): void => {};
+  onTouched = (_: any): void => {};
   writeValue(obj: any): void {
-    let _num = null;
     if (obj) {
       if (typeof obj == "number") {
-        _num = obj as number;
+        // eslint-disable-next-line no-empty
+      } else if (typeof obj == "string") {
+      } else {
+        throw "Unable to cast input to number";
       }
-      else if (typeof obj == "string") {
-        _num = parseFloat(obj);
-      }
-      else { throw "Unable to cast input to number" }
 
       if (this._input) {
-        this._input.nativeElement.value = ((obj as number) * this._factor).toFixed(this.decimals);
+        this._input.nativeElement.value = (
+          (obj as number) * this._factor
+        ).toFixed(this.decimals);
       }
       if (this._display) {
-        this._display.nativeElement.value = this.formatDisplay(((obj as number) * this._factor).toFixed(this.decimals));
+        this._display.nativeElement.value = this.formatDisplay(
+          ((obj as number) * this._factor).toFixed(this.decimals)
+        );
       }
-
-    }
-    else {
+    } else {
       this._input.nativeElement.value = null;
       this._display.nativeElement.value = null;
     }
@@ -155,5 +178,5 @@ export class NumberInputComponent implements OnInit, OnDestroy, AfterViewInit, C
   }
   private formatDisplay = (val: string | number): string => {
     return val ? `${this.prefix}${val.toString()}${this.postfix}` : "Null";
-  }
+  };
 }

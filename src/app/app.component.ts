@@ -1,55 +1,51 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { interval } from "rxjs"
-
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  title = 'ngControls';
+  title = "ngControls";
   value: number = 0.3;
   val: number = 20;
   valUndefined: number = 0.14;
   inputControl: FormControl;
   formGroup: FormGroup;
-  ngOnInit() {
+  ngOnInit(): void {
     this.formGroup = new FormGroup({
-      inputControl: new FormControl(.21)
+      inputControl: new FormControl(0.21)
     });
-
-
   }
-  onChange = (val) => {
+  onChange = (val): void => {
     console.log("valueChange", val);
-  }
-  onFocus = (e) => {
+  };
+  onFocus = (e): void => {
     console.log("Focus", e);
-  }
+  };
 
-  onBlur = (e) => {
+  onBlur = (e): void => {
     console.log("Blur", e);
-  }
-  onClick = (e) => {
+  };
+  onClick = (e): void => {
     console.log("Button Clicked", e);
     //  interval(2000).subscribe(() => {
 
-    let ran = Math.random();
-    this.val = ran
+    const ran = Math.random();
+    this.val = ran;
     this.value = ran;
     this.valUndefined = ran;
     this.formGroup.get("inputControl").setValue(ran);
     console.log("new number", ran);
     //})
-  }
-  onNull = () => {
+  };
+  onNull = (): void => {
     const ran = null;
     this.val = ran;
     this.value = ran;
     this.valUndefined = ran;
     this.formGroup.get("inputControl").setValue(ran);
-  }
+  };
 }

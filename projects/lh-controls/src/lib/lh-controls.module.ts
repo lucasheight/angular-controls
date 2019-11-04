@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
-import { NumberInputComponent } from './number-input/number-input.component';
-
+import { NgModule } from "@angular/core";
+import { NumberInputComponent } from "./number-input/number-input.component";
 
 @NgModule({
   declarations: [NumberInputComponent],
-  imports: [
-  ],
+  imports: [],
   exports: [NumberInputComponent]
 })
-export class LhControlsModule { }
+export class LhControlsModule {}

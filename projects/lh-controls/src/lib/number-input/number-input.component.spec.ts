@@ -1,17 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+/* eslint-disable no-undef */
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NumberInputComponent } from './number-input.component';
-import { DebugElement } from '@angular/core';
+import { NumberInputComponent } from "./number-input.component";
+import { DebugElement } from "@angular/core";
 
-describe('PercentInputComponent', () => {
+describe("PercentInputComponent", () => {
   let component: NumberInputComponent;
   let fixture: ComponentFixture<NumberInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NumberInputComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -20,21 +20,18 @@ describe('PercentInputComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
   it("value should be '.55'", () => {
-
     //component.value = .55;
-    component.writeValue(.55);
+    component.writeValue(0.55);
     fixture.detectChanges();
     const el: DebugElement = fixture.debugElement;
-    let ip = el.nativeElement.querySelector("input.lh-input");
-    let dp = el.nativeElement.querySelector("input.lh-display");
+    const dp = el.nativeElement.querySelector("input.lh-display");
     expect(dp.value).toBe(55);
     // setTimeout(() => {
 
     //}, 100)
-
-  })
-})
+  });
+});
