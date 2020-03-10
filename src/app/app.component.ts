@@ -22,14 +22,14 @@ export class AppComponent implements OnInit {
   onChange = (val): void => {
     console.log("valueChange", val);
   };
-  onFocus = (e): void => {
+  onFocus = (e: Event): void => {
     console.log("Focus", e);
   };
 
-  onBlur = (e): void => {
+  onBlur = (e: Event): void => {
     console.log("Blur", e);
   };
-  onClick = (e): void => {
+  onClick = (e: Event): void => {
     console.log("Button Clicked", e);
     //  interval(2000).subscribe(() => {
 
