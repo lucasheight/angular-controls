@@ -1,4 +1,18 @@
 <span class="lh-wrapper">
-    <input #inputCtr [disabled]="_disabled"  class="lh-input" [type]="showInput?'number':'hidden'"  [tabindex]="tabindex" />
-    <input #displayCtr [disabled]="_disabled" [title]="title" [placeholder]="placeholder" class="lh-display"  [type]="showInput?'hidden':'text'"  [tabindex]="tabindex" /> 
+  <input
+    #inputCtr
+    [disabled]="_disabled"
+    class="lh-input"
+    [type]="showInput ? 'number' : 'hidden'"
+    [tabindex]="tabindex"
+  />
+  <input
+    #displayCtr
+    [disabled]="_disabled"
+    [title]="title"
+    [placeholder]="placeholder"
+    class="lh-display"
+    [type]="showInput ? 'hidden' : 'text'"
+    [tabindex]="tabindex"
+  />
 </span>

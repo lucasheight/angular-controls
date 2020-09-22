@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
@@ -107,11 +108,7 @@ export class NumberInputComponent
         this.cdr.markForCheck();
       });
     fromEvent<KeyboardEvent>(this._input.nativeElement, "input")
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(100),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$), debounceTime(100), distinctUntilChanged())
       .subscribe(() => {
         //console.log("input", s)
         const v = parseFloat(this._input.nativeElement.value) / this._factor;
