@@ -19,6 +19,9 @@
     "type": "git",
     "url": "git+https://github.com/lucasheight/angular-controls"
   },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "peerDependencies": {
     "@angular/common": ">=6",
     "@angular/core": ">=6",
