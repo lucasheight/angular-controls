@@ -94,18 +94,20 @@ export class NumberInputComponent
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   ngOnInit(): void {}
+  private setFocus = (e: FocusEvent): void => {
+    this.showInput = true;
+    setTimeout(() => {
+      this._input.nativeElement.focus();
+      this.onTouched(e);
+      this.focusOutput.emit(e);
+    });
+    this.cdr.markForCheck();
+  };
   ngAfterViewInit(): void {
     this.subs$.add(
       fromEvent<FocusEvent>(this._display.nativeElement, "focus").subscribe(
         s => {
-          //console.log("focus", s)
-          this.showInput = true;
-          setTimeout(() => {
-            this._input.nativeElement.focus();
-            this.onTouched(s);
-            this.focusOutput.emit(s);
-          });
-          this.cdr.markForCheck();
+          this.setFocus(s);
         }
       )
     );
@@ -180,7 +182,7 @@ export class NumberInputComponent
     this._disabled = isDisabled;
   }
   public focus = (): void => {
-    this._input.nativeElement.focus();
+    this.setFocus(new FocusEvent("focus"));
   };
   private formatDisplay = (val: string | number): string => {
     return val ? `${this.prefix}${val.toString()}${this.postfix}` : "Null";

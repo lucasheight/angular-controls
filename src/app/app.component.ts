@@ -1,5 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild
+} from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { NumberInputComponent } from "projects/lh-controls/src/public-api";
 
 @Component({
   selector: "app-root",
@@ -14,6 +20,7 @@ export class AppComponent implements OnInit {
   valUndefined: number = 0.14;
   inputControl: FormControl;
   formGroup: FormGroup;
+  @ViewChild("focusTest") focus: NumberInputComponent;
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       inputControl: new FormControl(0.21)
@@ -24,6 +31,9 @@ export class AppComponent implements OnInit {
   };
   onFocus = (e: Event): void => {
     console.log("Focus", e);
+  };
+  onFocusClick = (): void => {
+    this.focus.focus();
   };
 
   onBlur = (e: Event): void => {
