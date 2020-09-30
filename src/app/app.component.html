@@ -26,7 +26,7 @@
   <h4>With reactive forms binding</h4>
   <form [formGroup]="formGroup">
     <p>Factor:100; postfix: %</p>
-    <lh-numberInput #focusTest formControlName="inputControl" factor="100" prefix="" postfix=" %" width="80" [focusOnShow]="true">
+    <lh-numberInput #focusTest formControlName="inputControl" factor="100" prefix="" postfix=" %" width="80">
     </lh-numberInput>
     <p>The reactive form value is: {{formGroup.controls['inputControl'].value}}</p>
   </form>

@@ -53,7 +53,6 @@ export class NumberInputComponent
     this._disabled = val;
     this.cdr.markForCheck();
   }
-  @Input() focusOnShow: boolean = true;
   @Input() prefix: string = "";
   @Input() postfix: string = "";
   @Input() set width(val: number | string) {
@@ -141,9 +140,6 @@ export class NumberInputComponent
         // this._input.nativeElement.focus()
       })
     );
-    if (this.focusOnShow) {
-      this.setFocus(new FocusEvent("focus"));
-    }
   }
 
   ngOnDestroy(): void {
