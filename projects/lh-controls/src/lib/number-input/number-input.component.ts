@@ -15,7 +15,7 @@ import {
   ChangeDetectorRef
 } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { fromEvent, Subject } from "rxjs";
+import { fromEvent, Subject, Subscription } from "rxjs";
 import { takeUntil, distinctUntilChanged, debounceTime } from "rxjs/operators";
 
 @Component({
@@ -88,53 +88,59 @@ export class NumberInputComponent
   @Output("focus") focusOutput: EventEmitter<FocusEvent> = new EventEmitter();
   @ViewChild("inputCtr", { static: true }) _input: ElementRef;
   @ViewChild("displayCtr", { static: true }) _display: ElementRef;
-  private destroy$: Subject<void> = new Subject();
+  private subs$ = new Subscription();
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    fromEvent<FocusEvent>(this._display.nativeElement, "focus")
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(s => {
-        //console.log("focus", s)
-        this.showInput = true;
-        setTimeout(() => {
-          this._input.nativeElement.focus();
-          this.onTouched(s);
-          this.focusOutput.emit(s);
-        });
-        this.cdr.markForCheck();
-      });
-    fromEvent<KeyboardEvent>(this._input.nativeElement, "input")
-      .pipe(takeUntil(this.destroy$), debounceTime(100), distinctUntilChanged())
-      .subscribe(() => {
-        //console.log("input", s)
-        const v = parseFloat(this._input.nativeElement.value) / this._factor;
-        this._display.nativeElement.value = this._input.nativeElement.value
-          ? this.formatDisplay(
-              parseFloat(this._input.nativeElement.value).toFixed(this.decimals)
-            )
-          : null;
-        this.valueOutput.emit(v || null);
-        this.onChanged(v || null);
-        this.cdr.markForCheck();
-      });
+    this.subs$.add(
+      fromEvent<FocusEvent>(this._display.nativeElement, "focus").subscribe(
+        s => {
+          //console.log("focus", s)
+          this.showInput = true;
+          setTimeout(() => {
+            this._input.nativeElement.focus();
+            this.onTouched(s);
+            this.focusOutput.emit(s);
+          });
+          this.cdr.markForCheck();
+        }
+      )
+    );
+    this.subs$.add(
+      fromEvent<KeyboardEvent>(this._input.nativeElement, "input")
+        .pipe(debounceTime(100), distinctUntilChanged())
+        .subscribe(() => {
+          //console.log("input", s)
+          const v = parseFloat(this._input.nativeElement.value) / this._factor;
+          this._display.nativeElement.value = this._input.nativeElement.value
+            ? this.formatDisplay(
+                parseFloat(this._input.nativeElement.value).toFixed(
+                  this.decimals
+                )
+              )
+            : null;
+          this.valueOutput.emit(v || null);
+          this.onChanged(v || null);
+          this.cdr.markForCheck();
+        })
+    );
 
-    fromEvent<FocusEvent>(this._input.nativeElement, "blur")
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(s => {
+    this.subs$.add(
+      fromEvent<FocusEvent>(this._input.nativeElement, "blur").subscribe(s => {
         // console.log("merged", s)
         this.showInput = false;
         this.blurOutput.emit(s);
         this.cdr.markForCheck();
         // this._input.nativeElement.focus()
-      });
+      })
+    );
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
+    this.subs$.unsubscribe();
   }
 
   onChanged = (_: any): void => {};
@@ -173,6 +179,9 @@ export class NumberInputComponent
   setDisabledState?(isDisabled: boolean): void {
     this._disabled = isDisabled;
   }
+  public focus = (): void => {
+    this._input.nativeElement.focus();
+  };
   private formatDisplay = (val: string | number): string => {
     return val ? `${this.prefix}${val.toString()}${this.postfix}` : "Null";
   };

@@ -8,26 +8,31 @@
   padding: 2px;
 
   display: inline-block;
-  width: 100%
+  width: 100%;
 }
 
 input {
   /* border: none; */
+  outline: none;
   width: 100%;
   display: inline-block;
-  padding: .375em .375em;
+  padding: 0.375em 0.375em;
   box-sizing: border-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   border-width: 1px;
   border-style: solid;
-  border-color: rgba(33,37,41,0.15)
-
-
+  border-color: rgba(33, 37, 41, 0.15) !important;
 }
+input:focus {
+  border-color: #80bdff;
 
-input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
