@@ -116,7 +116,6 @@ export class NumberInputComponent
       fromEvent<KeyboardEvent>(this._input.nativeElement, "input")
         .pipe(debounceTime(100), distinctUntilChanged())
         .subscribe(() => {
-          //console.log("input", s)
           const v = parseFloat(this._input.nativeElement.value) / this._factor;
           this._display.nativeElement.value = this._input.nativeElement.value
             ? this.formatDisplay(
@@ -125,8 +124,8 @@ export class NumberInputComponent
                 )
               )
             : null;
-          this.valueOutput.emit(v || null);
-          this.onChanged(v || null);
+          this.valueOutput.emit(v ?? null);
+          this.onChanged(v ?? null);
           this.cdr.markForCheck();
         })
     );
